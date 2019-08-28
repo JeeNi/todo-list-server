@@ -1,42 +1,34 @@
 package hello;
 
 public class Person {
-    private String name = "";
-    private String desc = "";
+    private String title = "";
+    private String content = "";
 
     public Person() {
     }
 
-    public Person(String name, String desc) {
-        this.name = name;
-        this.desc = desc;
+    public Person(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    /**
-     * @return the desc
-     */
-    public String getDesc() {
-        return desc;
+    public String getContent() {
+        return content;
     }
-
 
     public String toString() {
-        return String.format("[Name : %s, Desc: %s]", name, desc);
+        return String.format("[Title : %s, Content: %s]", title, content);
     }
-
 }

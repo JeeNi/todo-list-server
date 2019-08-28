@@ -24,19 +24,19 @@ public class GreetingController {
 
     @CrossOrigin("*")
     @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
+    public Greeting greeting(@RequestParam(value="title", defaultValue="World") String title) {
         return new Greeting(counter.incrementAndGet(),
-                            String.format(template, name));
+                            String.format(template, title));
     }
 
     @CrossOrigin("*")
-    @RequestMapping(value="/persons", method = RequestMethod.GET)
+    @RequestMapping(value = "/persons", method = RequestMethod.GET)
     public List<Person> greeting() {
         return persons;
     }
 
     @CrossOrigin("*")
-    @RequestMapping(value="/persons", method = RequestMethod.POST)
+    @RequestMapping(value = "/persons", method = RequestMethod.POST)
     public String addPerson(@RequestBody Person person) {
         // System.out.println(person.toString());
         this.persons.add(person);
@@ -44,7 +44,7 @@ public class GreetingController {
     }
 
     @CrossOrigin("*")
-    @RequestMapping(value="/persons/change", method = RequestMethod.PUT)
+    @RequestMapping(value =  "/persons/change", method = RequestMethod.PUT)
     public String changeOrder(@RequestBody ChangePriorityRequest changeRequest) {
         
         int from = changeRequest.getFrom();
@@ -59,8 +59,39 @@ public class GreetingController {
             persons.add(to, p);
         }
        
-
         System.out.println(changeRequest);
-        return "Hmmm";
-    } 
+        return "Change";
+    }
+    
+    @CrossOrigin("*")
+    @RequestMapping(value = "/persons/update", method = RequestMethod.PUT)
+    public String updateOrder(@RequestBody UpdateRequest update) {
+
+        String title = update.getTitle();
+        String content = update.getContent();
+        int index = update.getIndex();
+
+        System.out.println(update.toString());
+
+        Person p = persons.get(index);
+        p.setContent(content);
+        p.setTitle(title);
+
+        return "Update";
+    }
+
+    @CrossOrigin("*")
+    @RequestMapping(value = "/persons/remove", method = RequestMethod.PUT)
+    public String removeOrder(@RequestBody RemoveRequest remove) {
+        
+        int index = remove.getIndex();
+
+        System.out.println(remove.toString());
+
+        Person p = persons.get(index);
+       
+        persons.remove(index);
+        
+        return "Remove";
+    }
 }
